@@ -2525,23 +2525,13 @@ shortcodes page css
   margin-left: 15px;
 }
 
-#wrapper {
-	margin: 50px auto;
-	width: 540px;
-	height:460px;
-	background: #fff;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-o-border-radius: 5px;
-	-ms-border-radius: 5px;
-	border-radius: 5px;
-	padding: 40px;
-}
-
-.login-options {
-	margin-top: 15px;
-	color: #9c9c9c;
-	margin-bottom: 25px;
+.btnRouge{
+	  padding: 8px 20px;
+  background: #c52d2f;
+  color: #fff;
+  border-radius: 4px;
+  margin-top: 25px;
+  display: inline-block;
 }
 
 .facebook {
@@ -2570,7 +2560,6 @@ shortcodes page css
     background: #1ca4d6;
 }
 
-
 .linkedin {
     display: inline-block;
     text-align: center;
@@ -2587,79 +2576,15 @@ shortcodes page css
     text-decoration: none;
 	margin-right: 10px;
 }
-
-.linkedin:hover,
-.linkedin:focus {
-    background: #0077B5;
+.facebook:hover,
+.facebook:focus {
+    background: #37528c;
     color: #ffffff;
     text-decoration: none;
 }
-.linkedin:active {
+.facebook:active {
     background: #1ca4d6;
 }
-
-
-.clr hr {
-	border: 1px solid #e9e9e9;
-	margin:25px 0;
-}
-
-.mail-text {
-	color: #777;
-}
-
-.forms {
-	margin-top: 20px;
-	width:500px;
-}
-.forms input {
-	border: 1px solid #d9d9d9 !important;
-	color: #bebebe;
-	padding: 7px 0px 7px 50px;
-	outline:none;
-    transition: all 0.25s ease-in-out;
-    -webkit-transition: all 0.25s ease-in-out;
-    -moz-transition: all 0.25s ease-in-out;
-	margin-bottom: 15px;
-}
-.forms input:focus {
-    box-shadow: 0 0 5px rgba(48, 168, 218, 1);
-    -webkit-box-shadow: 0 0 5px rgba(48, 168, 218, 1); 
-    -moz-box-shadow: 0 0 5px rgba(48, 168, 218, 1);
-    border:1px solid rgba(48, 168, 218, 1) !important; 
-}
-.forms #username {
-	background:url("http://i.imgur.com/n6engUt.png") no-repeat left center;
-	background-position: 10px 5px;
-	border-right: 1px solid #f1f1f1;
-}
-.forms #mail {
-	background:url("http://i.imgur.com/xCWr97f.png") no-repeat left center;
-	background-position: 10px 10px;
-	border-right: 1px solid #f1f1f1;
-}
-.forms #password {
-	background:url("http://i.imgur.com/69UwNcl.png") no-repeat left center;
-	background-position: 10px 5px;
-	border-right: 1px solid #f1f1f1;
-}
-.lock {
-	float: right;
-	background:url("http://i.imgur.com/Jsq8WUM.png") no-repeat;
-	width:14px;
-	height:18px;
-	margin-top: 12px;
-}
-
-.btnRouge{
-	  padding: 8px 20px;
-  background: #c52d2f;
-  color: #fff;
-  border-radius: 4px;
-  margin-top: 25px;
-  display: inline-block;
-}
-
 
 
 
