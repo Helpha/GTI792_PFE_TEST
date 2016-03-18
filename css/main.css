@@ -2586,5 +2586,7 @@ shortcodes page css
     background: #1ca4d6;
 }
 
-
+.hidden{
+	visibility: hidden;
+}
 
