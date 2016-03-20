@@ -2590,3 +2590,75 @@ shortcodes page css
 	visibility: hidden;
 }
 
+
+.ac-pane {
+
+  margin-bottom: 15px;
+
+  background-color:#fff;
+
+  color:#000;
+
+}
+
+.ac-pane:last-child { margin-bottom: 0; }
+
+.ac-content { display: none; }
+
+
+.ac-title {
+
+  border: 1px solid #fff;
+
+  color: #fff;
+
+  display: block;
+
+  padding: 12px;
+
+  background-color:#c52d2f;
+
+}
+
+ 
+
+.ac-title i {
+
+  float: right;
+
+  font-size: 20px;
+
+}
+
+.ac-title i:before { content: "\f107"; }
+
+ 
+
+.active .ac-title i:before { content: "\f106"; }
+
+.ac-content {
+
+  border: 1px solid #fff;
+
+  margin-top: -1px;
+
+  padding: 15px;
+
+}
+
+.floatRight
+{
+	float:right;
+}
+
+.floatLeft
+{
+	float:left;
+}
+
+.textAlignLeft
+{
+	text-align: left;
+}
+
+

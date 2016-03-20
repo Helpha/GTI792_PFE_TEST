@@ -1,5 +1,0 @@
-Login form 
-http://azmind.com/2015/04/19/bootstrap-login-forms/
-
-Design 
-https://shapebootstrap.net/item/1524962-corlate-free-responsive-business-html-template
