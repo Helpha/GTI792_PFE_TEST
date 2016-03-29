@@ -7,7 +7,7 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <meta name="description" content="">
 	    <meta name="author" content="">
-	    <title>Profile| Tankeray</title>
+	    <title>Offre| Tankeray</title>
 
         <!-- CSS -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
@@ -50,7 +50,7 @@
 
     <header id="header">
 
-         <nav class="navbar navbar-inverse" role="banner">
+              <nav class="navbar navbar-inverse" role="banner">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -64,7 +64,7 @@
 				
                                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="profile.html">Profil</a></li>
+                        <li><a href="profile.html">Profil</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle active" data-toggle="dropdown">Emplois<i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu">
@@ -102,15 +102,11 @@
 								</a>
 								<div class="ac-content">
 									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Nom</label>
-										<input type="text" type="text" name="userName" placeholder="John..." class="col-xs-10 floatRight beauInput"/>
-									</div><br />
+										<label  class="col-sm-1 textAlignLeft">Poste</label>
+										<input type="text" type="text" name="jobTitle" placeholder="John..." class="col-xs-10 floatRight beauInput"/>
+									</div><br />	
 									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Prénom</label>
-										<input type="text" type="text" name="userName" placeholder="Doe..." class="col-xs-10 floatRight"/>
-									</div><br />
-									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Description</label>
+										<label  class="col-sm-1 textAlignLeft">Courte description</label>
 										 <textarea placeholder="Courte description..." name="desc" rows="12" cols="40" class="col-xs-10 floatRight"></textarea>
 									</div><br />
 									<div class="row">
@@ -123,7 +119,7 @@
 									</div><br />
 									
 									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Vos compétences</label>
+										<label  class="col-sm-1 textAlignLeft">Compétences recherchées</label>
 										<div class="col-xs-10 floatRight textAlignLeft">
 											<a>PHP<a>																							
 											<a>HTML<a>
@@ -139,82 +135,39 @@
 								</a>
 								<div class="ac-content">
 									<div class="row">
+										<label  class="col-sm-1 textAlignLeft">Horaire</label>
+										<input type="text" type="text" name="jobSchedule" placeholder="9:00 à 5:00" class="col-xs-10 floatRight beauInput"/>
+									</div><br />
+									
+									<div class="row">
+										<label  class="col-sm-1 textAlignLeft">Grosseur de l'équipe</label>
+										<input type="text" type="text" name="teamSize" placeholder="Environ 15 personnes" class="col-xs-10 floatRight beauInput"/>
+									</div><br />
+									
+									<div class="row">
+										<label  class="col-sm-1 textAlignLeft">Longue description description</label>
+										 <textarea placeholder="Courte description..." name="longdesc" rows="12" cols="40" class="col-xs-10 floatRight"></textarea>
+									</div><br />
+									
+									<div class="row">
+										<label  class="col-sm-1 textAlignLeft">Salaire offert ($/heure)</label>
+										 <input type="text" type="text" name="jobSalaryHigh" placeholder="maximum" class="col-xs-5 floatRight beauInput"/>
+										 <input type="text" type="text" name="jobSalaryLow" placeholder="minimum" class="col-xs-5 floatRight beauInput"/>										 
+									</div><br />
+									
+									<div class="row">
+										<label  class="col-sm-1 textAlignLeft">Avantages sociaux</label>
+										 <input type="text" type="text" name="avantages" placeholder="maximum" class="col-xs-10 floatRight beauInput"/>										 
+									</div><br />
+
+									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Courriel</label>
-										<input type="email" type="text" name="userName" placeholder="john.doh@gmail.com" class="col-xs-10 floatRight"/>
+										<input type="email" type="text" name="emailContact" placeholder="john.doh@gmail.com" class="col-xs-10 floatRight"/>
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Téléphone</label>
-										<input type="tel" type="text" name="userName" placeholder="555-555-5555" class="col-xs-10 floatRight"/>
+										<input type="tel" type="text" name="phoneContact" placeholder="555-555-5555" class="col-xs-10 floatRight"/>
 									</div><br />
-									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Ajouter études</label>
-										<input tyspe="text" type="text" name="userName" placeholder="École..." class="col-xs-3 floatRight"/>	
-											<select class="col-xs-5 floatRight">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="mercedes">Mercedes</option>
-											<option value="audi">Audi</option>
-										</select>	
-										<input tyspe="text" type="text" name="userName" placeholder="2012-2016..." class="col-xs-2 floatRight"/>									
-									</div><br />
-									
-									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Vos études</label>
-
-										<input tyspe="text" type="text" name="userName" value="ÉTS" class="col-xs-3 floatRight"/>	
-											<select class="col-xs-5 floatRight">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="mercedes">Mercedes</option>
-											<option value="audi">Audi</option>
-										</select>	
-										<input tyspe="text" type="text" name="userName" value="2012-2016" class="col-xs-2 floatRight"/>	<br />
-										
-										<input tyspe="text" type="text" name="userName" value="CEGEP de Rivière-du-Loup" class="col-xs-3 floatRight"/>	
-											<select class="col-xs-5 floatRight">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="mercedes">Mercedes</option>
-											<option value="audi">Audi</option>
-										</select>	
-										<input tyspe="text" type="text" name="userName" value="2019-2012" class="col-xs-2 floatRight"/>											
-	
-									</div>	<br/>	
-									
-									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Ajouter expériences</label>
-											
-											<select class="col-xs-8 floatRight">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="mercedes">Mercedes</option>
-											<option value="audi">Audi</option>
-										</select>
-										<input tyspe="text" type="text" name="userName" placeholder="2012-2016..." class="col-xs-2 floatRight"/>									
-									</div><br />
-									
-									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Vos expériences</label>
-
-										<select class="col-xs-8 floatRight">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="mercedes">Mercedes</option>
-											<option value="audi">Audi</option>
-										</select>	
-										<input tyspe="text" type="text" name="userName" value="2014-2015" class="col-xs-2 floatRight"/>	<br />
-										
-											
-											<select class="col-xs-8 floatRight">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="mercedes">Mercedes</option>
-											<option value="audi">Audi</option>
-										</select>	
-										<input tyspe="text" type="text" name="userName" value="2009-2009" class="col-xs-2 floatRight"/>											
-	
-									</div>	
-									
 									
 																
 								</div>
@@ -228,38 +181,29 @@
 								</a>
 								<div class="ac-content">
 									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Salaire attendu(par heure)</label>
-										<input type="number" type="text" name="userName" placeholder="35" class="col-xs-10 floatRight"/>
+										<label  class="col-sm-1 textAlignLeft">Début de l'offre</label>
+										<input type="date" type="text" name="offerStarts"  class="col-xs-10 floatRight"/>
 
 									</div><br />
 									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Déplacement maximale(en km)</label>
-										<input type="number" type="text" name="userName" placeholder="35" class="col-xs-10 floatRight"/>
+										<label  class="col-sm-1 textAlignLeft">Fin de l'offre</label>
+										<input type="date" type="text" name="offerEnds" class="col-xs-10 floatRight"/>
+
 									</div><br />
 									
 									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Voiture ?</label>
+										<label  class="col-sm-1 textAlignLeft">Doit posséder voiture ?</label>
 										<input type="checkbox" name="vehicle" value="yes" class="floatRight"><br>
 									</div><br />
 									
-									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Horaire flexible ?</label>
-										<input type="checkbox" name="horaire" value="yes" class="floatRight"><br>
-									</div><br />
 									
-									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Type de contrat</label>
-										<select class="col-xs-10 floatRight">
-											<option value="contract">Contrat</option>
-											<option value="salary">Salarié</option>
-											<option value="pigiste">Pigiste</option>
-										</select>	
-									</div><br />
-								</div>
+							
 							</div>
-						<input class="btnRouge floatRight" type="submit" name="btnAnnuler" value="Annuler" />
-						<input class="btnRouge floatRight" type="submit" name="btnSave" value="Sauvergarder" />
+							
 						</div>
+						<input class="btnRouge floatRight" type="submit" name="btnAnnuler" value="Annuler" />
+						<input class="btnRouge floatRight" type="submit" name="btnCreer" value="Sauvergarder" />
+						
 					</div>
 </div>   
 </div>              
