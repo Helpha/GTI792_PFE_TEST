@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="facebookapi.js"></script>
+ <script type="text/javascript" src="chat.js"></script>
+<script type="text/javascript" src="https://platform.linkedin.com/in.js">
+  api_key:77zl509ycpl2x5 
+  onLoad: onLinkedInLoad
+  authorize: true
+</script>
+
+<script type="text/javascript">
+var linkedInOauthToken;
+var token;
+var useremail = "coralie.mclaughlin@gmail.com";
+var password = "a";
+function getAppToken()
+{
+$.ajax({
+    type:'POST',
+    cache : false,
+    url: "http://149.56.109.218/API/token",
+    dataType:"jsonp",
+    data: {
+        email : useremail,
+        password: password
+
+        // if not a facebook user
+    }
+    })
+    .done(function(data){
+	token = data.API_RESPONSE;
+    console.log(token);
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+}
+
+
+
+function testHiredApi()
+{
+$.ajax({
+    type:'GET',
+    cache : false,
+    url: "API/users",
+    data : {email : useremail, token : token},
+    dataType:"jsonp"})
+    .done(function(data){
+    	console.log(data);
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+}
+function addUserByEmail()
+{
+FB.logout(function(response) {
+  // user is now logged out
+  });
+$.ajax({
+    type:'PUT',
+    url: "API/users",
+    dataType:"jsonp",
+    data : {
+        newAccount : true,
+        first_name : "firstname1",
+        last_name : "lastname1",
+        email: "user1@hired.com",
+        password : "12d23df23",
+        repeat_password : "12d23df23"
+    }})
+    .done(function(data){
+    	console.log(data);
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+}
+function updateUser()
+{
+$.ajax({
+    type:'post',
+    cache : false,
+    url: "API/users",
+    data : {
+        add_skills : [{name:"c#",weight:2},{name:"html",weight:1},{name:"javascript", weight:3},{name:"c++",weight:1}, {name:"css",weight:2}],
+       remove_skills:[{name:"c#"}],
+        description : "test",
+        add_experiences : [{name:"gestion de projet", annees:2}, {name:"programmation", annees:5}],
+        remove_experiences : [{name:"testremove", annees:4}],
+        add_references : [{email:"test"}],
+        remove_references : [{email:"test"}],
+        cv : "url",
+        add_studies : [{degree:"genie logiciel", establishment:"polytechnique", level:"undergrad", yearFinished:2015}],
+   //     remove_studies : [{name:"genie logiciel"}],
+        anticipated_salary : "9000000",
+        anticipated_salary_periode : "seconds",
+        contact_info : "test",
+        max_distance : "50",
+        has_car : "true",
+        contract_type : "part-time",
+        email : useremail,
+        token : token
+        },
+    dataType:"jsonp"})
+    .done(function(data){
+    	console.log(data);
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+
+}
+function getOffers()
+{
+$.ajax({
+    type:'GET',
+    cache : false,
+    url: "API/offers",
+    dataType:"jsonp",
+	data : {
+	email :useremail,
+	token : token
+
+}})
+    .done(function(data){
+    	console.log(data);
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+}
+function rankOffer()
+{
+$.ajax({
+    type:'POST',
+    cache : false,
+    url: "API/offers",
+    data : {
+        offerId : "0",
+        offerRank : "3.2",
+	email :useremail,
+	token : token
+    },
+    dataType:"jsonp"})
+    .done(function(data){
+    	console.log(data);
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+}
+function postOffer()
+{
+$.ajax({
+    type:'PUT',
+    cache : false,
+    url: "API/offers",
+    data : {
+        enterpriseId : "0",
+        userId : "0",
+        title : "TEST",
+        shortDescription : "TEST",
+        skills : {skill1 : "skill1", skill2: "skill2"},
+        contractType : "SALAIRE",
+        horaires : "9-5",
+        teamsize : "5",
+        longDescription : "TEST",
+        salary : "35000",
+        avantagesSociaux : {avantage1 : "avantage1", avantage2 : "avantage2"},
+        contractInfo : {firstname : "TEST", lastname : "TEST", phonenumber:"555-555-5555", email : "TEST@TEST.com"},
+        offersBegin : "1/1/2016",
+        offersEnd : "1/8/2016",
+        needCar : "true"
+    },
+    dataType:"jsonp"})
+    .done(function(data){
+    	console.log(data);
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+}
+function deleteOffer()
+{
+$.ajax({
+    type:'DELETE',
+    cache : false,
+    url: "API/offers",
+    data : {
+        offerId : "0",
+        userId : "0"
+    },
+    dataType:"jsonp"})
+    .done(function(data){
+    	console.log(data);
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+}
+// LINKEDIN API CALLS
+function onLinkedInLoad() {
+ IN.Event.on(IN, "auth", onLinkedInAuth);
+// temporary to test login
+IN.User.logout();
+}
+function onLinkedInAuth() {
+     IN.API.Profile("me").result(displayProfiles);
+  console.debug(IN.ENV.auth);
+linkedInOauthToken = IN.ENV.auth.oauth_token;
+}
+function displayProfiles(profiles) {
+     member = profiles.values[0];
+     document.getElementById("profiles").innerHTML = 
+          "<p id=\"" + member.id + "\">LinkedInLogin : Hello " +  member.firstName + " " + member.lastName + "</p>";
+}
+</script>
+<!--
+ <script type="text/javascript">
+    
+        // ask user for name with popup prompt    
+        var name = prompt("Enter your chat name:", "Guest");
+        
+        // default name is 'Guest'
+        if (!name || name === ' ') {
+           name = "Guest";  
+        }
+        
+        // strip tags
+        name = name.replace(/(<([^>]+)>)/ig,"");
+        
+        // display name on page
+        $("#name-area").html("You are: <span>" + name + "</span>");
+        
+        // kick off chat
+        var chat =  new Chat();
+        $(function() {
+        
+             chat.getState(); 
+             
+             // watch textarea for key presses
+             $("#sendie").keydown(function(event) {  
+             
+                 var key = event.which;  
+           
+                 //all keys including return.  
+                 if (key >= 33) {
+                   
+                     var maxLength = $(this).attr("maxlength");  
+                     var length = this.value.length;  
+                     
+                     // don't allow new content if length is maxed out
+                     if (length >= maxLength) {  
+                         event.preventDefault();  
+                     }  
+                  }  
+                                                                                                                                                                                                            });
+             // watch textarea for release of key press
+             $('#sendie').keyup(function(e) {   
+                                 
+                  if (e.keyCode == 13) { 
+                  
+                    var text = $(this).val();
+                    var maxLength = $(this).attr("maxlength");  
+                    var length = text.length; 
+                     
+                    // send 
+                    if (length <= maxLength + 1) { 
+                     
+                        chat.send(text, name);  
+                        $(this).val("");
+                        
+                    } else {
+                    
+                        $(this).val(text.substring(0, maxLength));
+                        
+                    }   
+                    
+                    
+                  }
+             });
+            
+        });
+    </script>-->
+</head>
+<!--  onload="setInterval('chat.update()', 1000)"-->
+<body >
+<div style="background-color:red">
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+login
+</fb:login-button>
+</div>
+<div id="status">
+</div>
+<script type="IN/Login"></script>
+
+<div id="profiles"></div>
+<button onclick="getAppToken()">Get App Token</button>
+<button onclick="testHiredApi()">Get user info</button>
+<button onclick="addUserByEmail()">add user by email</button>
+
+
+<button onclick="updateUser()">Update User</button>
+
+<button onclick="getOffers()">Get Offers</button>
+<button onclick="rankOffer()">Rank Offer</button>
+<button onclick="postOffer()">Add Offer</button>
+<button onclick="deleteOffer()">Delete Offer</button>
+
+    <div id="page-wrap">
+    
+        <h2>jQuery/PHP Chat</h2>
+        
+        <p id="name-area"></p>
+        
+        <div id="chat-wrap"><div id="chat-area"></div></div>
+        
+        <form id="send-message-area">
+            <p>Your message: </p>
+            <textarea id="sendie" maxlength = '100' ></textarea>
+        </form>
+    
+    </div>
+
+</body>

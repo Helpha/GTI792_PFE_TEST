@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	    <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <meta name="description" content="">
@@ -36,6 +36,39 @@
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
 
+<script type="text/javascript">
+var linkedInOauthToken;
+var token;
+var useremail = "coralie.mclaughlin@gmail.com";
+var password = "a";
+function getAppToken()
+{
+	
+$.ajax({
+    type:'POST',
+    
+    url: "http://149.56.109.218/API/token",
+    dataType:"jsonp",
+    data: {
+        email : useremail,
+        password: password
+
+        // if not a facebook user
+    }
+    })
+    .done(function(data){
+	token = data.API_RESPONSE;
+    console.log(token);
+    alert(token);
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+		alert("restaoskma");
+            //alert("ajax");
+    });   
+}
+</script>
     </head>
 
     <body class="homepage">
@@ -81,9 +114,10 @@
 			                        <div class="form-group">
 			                        	<label class="sr-only" for="form-password">Mot de passe</label>
 			                        	<input type="password" name="form-password" placeholder="mot de passe..." class="form-password form-control" id="form-password">
+			                       		<input type="submit" class="btnRouge" onclick="getAppToken()"value="Connexion" />
+			                       		<input type="submit" class="btnRouge" onclick="getAppToken()"value="Annuler" />			
 			                        </div>
-			                        <button type="submit" class="btn"><a href="profile.html">Connexion</a></button>
-			                        
+		                        
 			                    </form>
 		                    </div>
                         </div>

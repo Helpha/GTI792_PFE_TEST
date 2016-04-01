@@ -35,11 +35,18 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
-		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="js/jquery.js"></script>
 		<script src="js/paccordion.js"></script>
+		    <script src="assets/js/jquery-1.11.1.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.backstretch.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/wow.min.js"></script>	
 
-
-    	<script src="js/jquery.js"></script>
 
 
 
@@ -65,21 +72,11 @@
                                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="profile.html">Profil</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle active" data-toggle="dropdown">Emplois<i class="fa fa-angle-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="job.html">Voir les offres</a></li>
-                                <li><a href="matchs.html">Voir vos matchs</a></li>
-                            </ul>
-                        </li> 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Vos offres<i class="fa fa-angle-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="createOffers.html">Créer une nouvelle offre</a></li>
-                                <li><a href="clientOffering.html">Vos offres en cours</a></li>
-                                <li><a href="matchingJob.html">Voir les candidats</a></li>
-                            </ul>
-                        </li>                 
+						<li><a href="job.html">Voir les offres</a></li>
+						<li><a href="matchs.html">Voir vos matchs</a></li>
+						<li><a href="createOffers.html">Créer une nouvelle offre</a></li>
+                        <li><a href="clientOffering.html">Vos offres en cours</a></li>
+                        <li><a href="matchingJob.html">Voir les candidats</a></li>                
                     </ul>
                 </div>
             </div><!--/.container-->
@@ -148,70 +145,74 @@
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Ajouter études</label>
-										<input tyspe="text" type="text" name="userName" placeholder="École..." class="col-xs-3 floatRight"/>	
-											<select class="col-xs-5 floatRight">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="mercedes">Mercedes</option>
-											<option value="audi">Audi</option>
-										</select>	
-										<input tyspe="text" type="text" name="userName" placeholder="2012-2016..." class="col-xs-2 floatRight"/>									
-									</div><br />
-									
-									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Vos études</label>
-
-										<input tyspe="text" type="text" name="userName" value="ÉTS" class="col-xs-3 floatRight"/>	
-											<select class="col-xs-5 floatRight">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="mercedes">Mercedes</option>
-											<option value="audi">Audi</option>
-										</select>	
-										<input tyspe="text" type="text" name="userName" value="2012-2016" class="col-xs-2 floatRight"/>	<br />
-										
-										<input tyspe="text" type="text" name="userName" value="CEGEP de Rivière-du-Loup" class="col-xs-3 floatRight"/>	
-											<select class="col-xs-5 floatRight">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="mercedes">Mercedes</option>
-											<option value="audi">Audi</option>
-										</select>	
-										<input tyspe="text" type="text" name="userName" value="2019-2012" class="col-xs-2 floatRight"/>											
-	
-									</div>	<br/>	
-									
-									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Ajouter expériences</label>
-											
-											<select class="col-xs-8 floatRight">
+										<input tyspe="text" type="text" name="userName" placeholder="École..." class="col-xs-10 floatRight"/>	<br />
+										<input tyspe="text" type="text" name="userName" placeholder="2012-2016..." class="col-xs-10 floatRight"/><br />
+											<select class="col-xs-10 floatRight">
 											<option value="volvo">Volvo</option>
 											<option value="saab">Saab</option>
 											<option value="mercedes">Mercedes</option>
 											<option value="audi">Audi</option>
 										</select>
-										<input tyspe="text" type="text" name="userName" placeholder="2012-2016..." class="col-xs-2 floatRight"/>									
+																		
+									</div><br />
+									
+									<div class="row">
+										<label  class="col-sm-1 textAlignLeft">Vos études</label>
+
+										<input tyspe="text" type="text" name="userName" value="ÉTS" class="col-xs-10 floatRight"/><br />	
+										<input tyspe="text" type="text" name="userName" value="2012-2016" class="col-xs-10 floatRight"/>	<br />
+											<select class="col-xs-10 floatRight">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="mercedes">Mercedes</option>
+											<option value="audi">Audi</option>
+										</select>	
+										
+										
+										<input tyspe="text" type="text" name="userName" value="CEGEP de Rivière-du-Loup" class="col-xs-10 floatRight"/>	<br />
+										<input tyspe="text" type="text" name="userName" value="2019-2012" class="col-xs-10 floatRight"/>	<br />
+											<select class="col-xs-10 floatRight">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="mercedes">Mercedes</option>
+											<option value="audi">Audi</option>
+										</select>
+																				
+	
+									</div>	<br/>	
+									
+									<div class="row">
+										<label  class="col-sm-1 textAlignLeft">Ajouter expériences</label>
+											<input type="text" type="text" name="userName" placeholder="2012-2016..." class="col-xs-10 floatRight"/>
+											<br />
+											<select class="col-xs-10 floatRight">
+											<option value="volvo">Volvo</option>
+											<option value="saab">Saab</option>
+											<option value="mercedes">Mercedes</option>
+											<option value="audi">Audi</option>
+										</select>
+																			
 									</div><br />
 									
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Vos expériences</label>
-
-										<select class="col-xs-8 floatRight">
+<input tyspe="text" type="text" name="userName" value="2014-2015" class="col-xs-10 floatRight"/>	<br />
+										<select class="col-xs-10 floatRight">
 											<option value="volvo">Volvo</option>
 											<option value="saab">Saab</option>
 											<option value="mercedes">Mercedes</option>
 											<option value="audi">Audi</option>
 										</select>	
-										<input tyspe="text" type="text" name="userName" value="2014-2015" class="col-xs-2 floatRight"/>	<br />
 										
-											
-											<select class="col-xs-8 floatRight">
+										
+											<input tyspe="text" type="text" name="userName" value="2009-2009" class="col-xs-10 floatRight"/>	<br />
+											<select class="col-xs-10 floatRight">
 											<option value="volvo">Volvo</option>
 											<option value="saab">Saab</option>
 											<option value="mercedes">Mercedes</option>
 											<option value="audi">Audi</option>
 										</select>	
-										<input tyspe="text" type="text" name="userName" value="2009-2009" class="col-xs-2 floatRight"/>											
+																				
 	
 									</div>	
 									
@@ -276,14 +277,6 @@
     </footer><!--/#footer-->
 
         <!-- Javascript -->
-    <script src="assets/js/jquery-1.11.1.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/jquery.backstretch.min.js"></script>
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/jquery.isotope.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/wow.min.js"></script>
+
 </body>
 </html>

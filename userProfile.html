@@ -62,24 +62,14 @@
                     <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo"></a>
                 </div>
 				
-                                <div class="collapse navbar-collapse navbar-right">
-                    <ul class="nav navbar-nav">
-                        <li><a href="profile.html">Profil</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle active" data-toggle="dropdown">Emplois<i class="fa fa-angle-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="job.html">Voir les offres</a></li>
-                                <li><a href="matchs.html">Voir vos matchs</a></li>
-                            </ul>
-                        </li> 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Vos offres<i class="fa fa-angle-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="createOffers.html">Créer une nouvelle offre</a></li>
-                                <li><a href="clientOffering.html">Vos offres en cours</a></li>
-                                <li><a href="matchingJob.html">Voir les candidats</a></li>
-                            </ul>
-                        </li>                 
+                        <div class="collapse navbar-collapse navbar-right">
+                        <ul class="nav navbar-nav">
+                        <li class="active"><a href="profile.html">Profil</a></li>
+						<li><a href="job.html">Voir les offres</a></li>
+						<li><a href="matchs.html">Voir vos matchs</a></li>
+						<li><a href="createOffers.html">Créer une nouvelle offre</a></li>
+                        <li><a href="clientOffering.html">Vos offres en cours</a></li>
+                        <li><a href="matchingJob.html">Voir les candidats</a></li>                
                     </ul>
                 </div>
             </div><!--/.container-->
@@ -107,7 +97,7 @@
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Description</label>
-										 <textarea placeholder="Courte description..." name="desc" rows="12" cols="40" class="col-xs-10 floatRight"></textarea>
+										 <textarea placeholder="Courte description..." disabled  name="desc" rows="12" cols="40" class="col-xs-10 floatRight"></textarea>
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Compétences</label>
@@ -119,22 +109,24 @@
 									</div>	<br/>
 				
 									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Vos études</label>
-										<input type="text" disabled type="text" name="sutdyName" value="ÉTS" class="col-xs-5 floatRight"/>			
-										<input type="text" disabled type="text" name="studyYear" value="2012-2016" class="col-xs-5 floatRight"/>	<br />										
-										<input type="text" disabled type="text" name="userName" value="CEGEP de Rivière-du-Loup" class="col-xs-5 floatRight"/>		
-										<input type="text"  disabled type="text" name="userName" value="2019-2012" class="col-xs-5 floatRight"/>											
+										<label  class="col-sm-1 textAlignLeft">Études</label>
+										<input tyspe="text" disabled type="text" name="studySchool" value="ÉTS" class="col-xs-10 floatRight"/><br />	
+										<input tyspe="text" disabled  type="text" name="studyYear" value="2012-2016" class="col-xs-10 floatRight"/><br />
+										<input tyspe="text" disabled type="text" name="studyDiploma" value="GTI" class="col-xs-10 floatRight"/><br /><br />	
+																				
+										<input type="text" disabled type="text" name="userName" value="CEGEP de Rivière-du-Loup" class="col-xs-10 floatRight"/>	<br />		
+										<input type="text"  disabled type="text" name="userName" value="2019-2012" class="col-xs-10 floatRight"/><br />	
+										<input tyspe="text" disabled type="text" name="studyDiploma" value="Techniques informatique" class="col-xs-10 floatRight"/>											
 	
 									</div>	<br/>	
 									
 									
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Expériences</label>
-
-										<input type="text" disabled name="expName" class="col-xs-8 floatRight" value="Biron" />
-										<input type="text"  disabled type="text" name="userName" value="2014-2015" class="col-xs-2 floatRight"/>	<br />
-										<input type="text"  disabled name="expName" class="col-xs-8 floatRight" value="CGI" />											
-										<input type="text"  disabled type="text" name="userName" value="2009-2009" class="col-xs-2 floatRight"/>											
+										<input type="text" disabled name="expName" class="col-xs-10 floatRight" value="Biron" /><br />
+										<input type="text"  disabled type="expYear" name="userName" value="2014-2015" class="col-xs-10 floatRight"/>	<br />
+										<input type="text"  disabled name="expName" class="col-xs-10 floatRight" value="CGI" />											
+										<input type="text"  disabled type="expYear" name="userName" value="2009-2009" class="col-xs-10 floatRight"/>											
 	
 									</div>
 									
