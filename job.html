@@ -48,7 +48,13 @@
     <link rel="stylesheet" href="assets/Stryzhevskyi-rangeSlider-9ee0e55/src/rangeSlider.css">
     <!--<link rel="stylesheet" href="rangeSlider-flat.css">-->
     
-
+<script type="text/javascript">
+function postNote(){
+	
+	var value = document.getElementById("valueSilder").value;
+	alert(value);
+}
+</script>
 
     </head>
 
@@ -68,8 +74,8 @@
                     <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo"></a>
                 </div>
 				
-                                                <div class="collapse navbar-collapse navbar-right">
-                                       <ul class="nav navbar-nav">
+                        <div class="collapse navbar-collapse navbar-right">
+                        <ul class="nav navbar-nav">
                         <li class="active"><a href="profile.html">Profil</a></li>
 						<li><a href="job.html">Voir les offres</a></li>
 						<li><a href="matchs.html">Voir vos matchs</a></li>
@@ -101,24 +107,19 @@
 						</row>
 						<row>
 							<div class="col-xs-10 floatRight textAlignLeft">
-								<a>PHP<a>																							
-								<a>HTML<a>
-								<a>C++<a>											
+								<ul id="listSkills">
+											
+								</ul>											
 							</div>
 						</row>
-						<row>
-							<div class="col-xs-10 floatRight textAlignLeft">
-								<a>Type de contrat : <a>																							
-								<a>journalier<a>										
-							</div>
-						</row>
+
 						
 					</div>
 
 					<div class="col-sm-12">
 					    <h2>Votre note</h2>
-					            <input type="range" min="0" max="5" step="0.10" value="" data-rangeSlider>
-						        <output></output>
+					            <input type="range" min="0" max="5" step="0.10" value="" onmouseup="postNote()" data-rangeSlider>
+						        <output id="valueSilder"></output>
 						
 											</div>
 							</div>

@@ -39,19 +39,23 @@
 <script type="text/javascript">
 var linkedInOauthToken;
 var token;
-var useremail = "coralie.mclaughlin@gmail.com";
-var password = "a";
+//var useremail = "isaac.rutherford@bergnaum.com";
+
+
 function getAppToken()
 {
 	
+	var useremail = document.getElementById("form-username").value;
+	var password = document.getElementById("form-password").value;
 $.ajax({
     type:'POST',
-    
+    cache : false,
     url: "http://149.56.109.218/API/token",
     dataType:"jsonp",
     data: {
         email : useremail,
-        password: password
+        password: password,
+		method: "POST"
 
         // if not a facebook user
     }
@@ -59,14 +63,18 @@ $.ajax({
     .done(function(data){
 	token = data.API_RESPONSE;
     console.log(token);
-    alert(token);
+    window.location.replace("profile.html");
+    
+    localStorage.setItem("token",token);
+     localStorage.setItem("email",useremail);
+    
     }).fail(function(xhr, status, error)
 	{
 	alert(xhr.responseText);
+	 window.location.replace("profile.html");
 	}).always(function(){
-		alert("restaoskma");
-            //alert("ajax");
-    });   
+         window.location.replace("profile.html");    //alert("ajax");
+    });
 }
 </script>
     </head>
@@ -106,7 +114,7 @@ $.ajax({
                         		</div>
                             </div>
                             <div class="form-bottom">
-			                    <form role="form" action="" method="post" class="login-form">
+
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="form-username">Adresse courriel</label>
 			                        	<input type="text" name="form-username" placeholder="adresse courriel..." class="form-username form-control" id="form-username">
@@ -118,7 +126,7 @@ $.ajax({
 			                       		<input type="submit" class="btnRouge" onclick="getAppToken()"value="Annuler" />			
 			                        </div>
 		                        
-			                    </form>
+			                   
 		                    </div>
                         </div>
                     </div>

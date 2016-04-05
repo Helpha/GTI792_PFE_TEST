@@ -47,9 +47,218 @@
     <script src="js/main.js"></script>
     <script src="js/wow.min.js"></script>	
 
+<script type="text/javascript">
+var token = localStorage.getItem("token");
+var email = localStorage.getItem("email");
+testHiredApi();
+function testHiredApi()
+{
 
 
+$.ajax({
+    type:'GET',
+    cache : false,
+    url: "http://149.56.109.218/API/users",
+    data : {email : email, token : token, method :'GET'},
+    dataType:"jsonp"})
+    .done(function(data){
+    	console.log(data);
+    	
+    	
+    	  var ul = document.getElementById("listSkills");
 
+  		  for (var i = 0; i < data.API_RESPONSE.skills.length; ++i) {
+  		  var li = document.createElement("li");
+		if (data.API_RESPONSE.skills[i].weight == "3"){
+			data.API_RESPONSE.skills[i].weight = "expert";
+		}	
+		
+		else if (data.API_RESPONSE.skills[i].weight == "2"){
+			data.API_RESPONSE.skills[i].weight  = "intermédiaire";
+		}
+		
+		else if (data.API_RESPONSE.skills[i].weight == "1"){
+			data.API_RESPONSE.skills[i].weight  ="débutant";
+		}
+  		  li.appendChild(document.createTextNode(data.API_RESPONSE.skills[i].name + " - "+ data.API_RESPONSE.skills[i].weight));
+          ul.appendChild(li);
+    	  }
+
+    	  var ul = document.getElementById("listSchools");
+  		  for (var i = 0; i < data.API_RESPONSE.studies.length; ++i) {
+  		  var li = document.createElement("li");
+  		  li.appendChild(document.createTextNode(data.API_RESPONSE.studies[i].establishment + " - "+ data.API_RESPONSE.studies[i].yearFinished + " - "+ data.API_RESPONSE.studies[i].degree));
+          ul.appendChild(li);
+    	  }
+    	  
+    	  var ul = document.getElementById("listExperiences");
+  		  for (var i = 0; i < data.API_RESPONSE.studies.length; ++i) {
+  		  var li = document.createElement("li");
+  		  li.appendChild(document.createTextNode(data.API_RESPONSE.experiences[i].name + " - "+ data.API_RESPONSE.experiences[i].annees));
+          ul.appendChild(li);
+    	  }
+    	document.getElementById("userName").value = data.API_RESPONSE.lastName;
+    	document.getElementById("userFirstName").value= data.API_RESPONSE.firstName;
+    	document.getElementById("userDesc").value = data.API_RESPONSE.description;
+    	document.getElementById("userEmail").value = email;
+    	document.getElementById("userPhone").value = data.API_RESPONSE.description;
+    	document.getElementById("userSalary").value = data.API_RESPONSE.anticipatedSalary;
+    	document.getElementById("userKm").value = data.API_RESPONSE.maxDistance;
+    	var hasCar = true;
+    	if(data.API_RESPONSE.hasCar == "false"){
+    		hasCar = false;
+    	}
+    	document.getElementById("userCar").checked = hasCar;
+
+		console.log(data.API_RESPONSE.email);
+    	
+    	
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+}
+
+function updateSkills()
+{
+	
+		skill = document.getElementById("ddlSkill").value;
+		skillLevel = document.getElementById("ddlSkillLevel").value;
+		html = "<li>"+skill+" - "+skillLevel+"</li>";
+		document.getElementById('listSkills').innerHTML += html;
+}
+
+function updateStudies()
+{
+	
+		school = document.getElementById("userSchool").value;
+		year = document.getElementById("userSchoolYear").value;
+		diploma = document.getElementById("userSchoolDiploma").value;
+		html = "<li>"+school+" - "+year+ " - " +diploma+ "</li>";
+		document.getElementById('listSchools').innerHTML += html;
+}
+
+function updateExperiences()
+{
+	
+		year = document.getElementById("userCompanyYears").value;
+		company = document.getElementById("userCompany").value;
+		html = "<li>"+company+" - "+year+"</li>";
+		document.getElementById('listExperiences').innerHTML += html;
+}
+
+function updateUser()
+{
+
+// Générer la string pour les skills
+var skills = "[";
+var ul = document.getElementById("listSkills");
+var items = ul.getElementsByTagName("li");
+for (var i = 0; i < items.length; ++i) {
+	var valueToSeperate = items[i].innerHTML ;
+	var myArray = valueToSeperate.split ( " - " );
+	var lastThing =",";
+	if(i==items.length-1)
+		{
+			lastThing ="";
+		}
+	if (myArray[1]== "expert"){
+		myArray[1] = "3";
+	}	
+	
+	if (myArray[1]== "intermédiaire"){
+		myArray[1] = "2";
+	}
+	
+	if (myArray[1]== "débutant"){
+		myArray[1] ="1";
+	}
+				
+   skills += "{name:\""+myArray[0]+"\",weight:"+myArray[1]+"}"+lastThing+"";
+}
+skills += "]";
+console.log(skills);
+
+var studies = "[";
+var ul = document.getElementById("listSchools");
+var items = ul.getElementsByTagName("li");
+for (var i = 0; i < items.length; ++i) {
+	var valueToSeperate = items[i].innerHTML ;
+	var myArray = valueToSeperate.split ( " - " );
+	var lastThing =",";
+	if(i==items.length-1)
+		{
+			lastThing ="";
+		}
+				
+   studies+= "{establishment:\""+myArray[0]+"\",yearFinished:"+myArray[1]+",degree:\""+myArray[2]+"\"}"+lastThing+"";
+}
+studies += "]";
+
+var experiences ="[";
+var ul = document.getElementById("listExperiences");
+var items = ul.getElementsByTagName("li");
+for (var i = 0; i < items.length; ++i) {
+	var valueToSeperate = items[i].innerHTML ;
+	var myArray = valueToSeperate.split ( " - " );
+	var lastThing =",";
+	if(i==items.length-1)
+		{
+			lastThing ="";
+		}
+				
+   experiences+= "{name:\""+myArray[0]+"\",annees:"+myArray[1]+"}"+lastThing+"";
+}
+experiences += "]";
+
+
+console.log(studies);
+console.log(experiences);
+var firstName = document.getElementById("userFirstName").value;
+var lastName = document.getElementById("userName").value;
+var description = document.getElementById("userDesc").value;
+var userEmail = document.getElementById("userEmail").value;
+var phone = document.getElementById("userPhone").value;
+var salary = document.getElementById("userSalary").value;
+var km = document.getElementById("userKm").value;
+var car = document.getElementById("userCar").checked;
+var flexible = document.getElementById("userFlexible").value;
+
+$.ajax({
+    type:'post',
+    cache : false,
+    url: "http://149.56.109.218/API/users",
+    data : {
+        add_skills : skills,
+        description : description,
+        add_experiences : experiences,
+        add_studies : studies,
+        anticipated_salary : salary,
+        max_distance : km,
+        has_car : car,
+        email : email,
+        token : token,
+        last_name : lastName,
+        first_name : firstName,
+        method: "POST"
+        },
+    dataType:"jsonp"})
+    .done(function(data){
+    	console.log(data);
+    	window.location.replace("profile.html");
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+
+}
+
+	
+</script>
 
     </head>
 
@@ -100,31 +309,37 @@
 								<div class="ac-content">
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Nom</label>
-										<input type="text" type="text" name="userName" placeholder="John..." class="col-xs-10 floatRight beauInput"/>
+										<input type="text" type="text" id="userName" name="userName" placeholder="John..." class="col-xs-10 floatRight beauInput"/>
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Prénom</label>
-										<input type="text" type="text" name="userName" placeholder="Doe..." class="col-xs-10 floatRight"/>
+										<input type="text" type="text"  id="userFirstName" name="userFirstName" placeholder="Doe..." class="col-xs-10 floatRight"/>
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Description</label>
-										 <textarea placeholder="Courte description..." name="desc" rows="12" cols="40" class="col-xs-10 floatRight"></textarea>
+										 <textarea id="userDesc" placeholder="Courte description..." name="desc" rows="12" cols="40" class="col-xs-10 floatRight"></textarea>
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Ajouter une compétence</label>
-										<select class="col-xs-10 floatRight">
+										<select id="ddlSkill" class="col-xs-10 floatRight">
 											<option value="word">Word</option>
 											<option value="csharp">C#</option>
 											<option value="php">PHP</option>
-										</select>										
+										</select><br />	
+										<select id="ddlSkillLevel" class="col-xs-10 floatRight">
+											<option value="débutant">Débutant</option>
+											<option value="intermédiaire">Intermédiaire</option>
+											<option value="expert">Expert</option>
+										</select><br />
+										<input class="col-xs-10 floatRight btnRouge" type="submit" value="ajouter" onclick="updateSkills()" id="btnUpdateSkills" />									
 									</div><br />
 									
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Vos compétences</label>
 										<div class="col-xs-10 floatRight textAlignLeft">
-											<a>PHP<a>																							
-											<a>HTML<a>
-											<a>C++<a>											
+											<ul id="listSkills">
+											
+											</ul>										
 										</div>
 										</div>									
 								</div>
@@ -137,81 +352,78 @@
 								<div class="ac-content">
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Courriel</label>
-										<input type="email" type="text" name="userName" placeholder="john.doh@gmail.com" class="col-xs-10 floatRight"/>
+										<input type="email" type="text" disabled id="userEmail" name="userName" placeholder="john.doh@gmail.com" class="col-xs-10 floatRight"/>
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Téléphone</label>
-										<input type="tel" type="text" name="userName" placeholder="555-555-5555" class="col-xs-10 floatRight"/>
+										<input type="tel" type="text" id="userPhone" name="userName" placeholder="555-555-5555" class="col-xs-10 floatRight"/>
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Ajouter études</label>
-										<input tyspe="text" type="text" name="userName" placeholder="École..." class="col-xs-10 floatRight"/>	<br />
-										<input tyspe="text" type="text" name="userName" placeholder="2012-2016..." class="col-xs-10 floatRight"/><br />
-											<select class="col-xs-10 floatRight">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="mercedes">Mercedes</option>
-											<option value="audi">Audi</option>
-										</select>
+										<input tyspe="text" type="text" id="userSchool" name="userName" placeholder="École..." class="col-xs-10 floatRight"/>	<br />
+										<input tyspe="text" type="text" id="userSchoolYear" name="userName" placeholder="2012-2016..." class="col-xs-10 floatRight"/><br />
+											<select id="userSchoolDiploma" class="col-xs-10 floatRight">
+											<option value="Genie Logiciel">Genie Logiciel</option>
+											<option value="Genie TI">Genie TI</option>
+											<option value="Informatique">Informatique</option>
+											<option value="Science informatique">Science informatique</option>
+											
+										</select><br />
+										<input class="col-xs-10 floatRight btnRouge" type="submit" value="ajouter" onclick="updateStudies()" id="btnUpdateStudies" />	
 																		
 									</div><br />
 									
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Vos études</label>
-
-										<input tyspe="text" type="text" name="userName" value="ÉTS" class="col-xs-10 floatRight"/><br />	
-										<input tyspe="text" type="text" name="userName" value="2012-2016" class="col-xs-10 floatRight"/>	<br />
-											<select class="col-xs-10 floatRight">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="mercedes">Mercedes</option>
-											<option value="audi">Audi</option>
-										</select>	
+										<div class="col-xs-10 floatRight textAlignLeft">
+											<ul id="listSchools">
 										
-										
-										<input tyspe="text" type="text" name="userName" value="CEGEP de Rivière-du-Loup" class="col-xs-10 floatRight"/>	<br />
-										<input tyspe="text" type="text" name="userName" value="2019-2012" class="col-xs-10 floatRight"/>	<br />
-											<select class="col-xs-10 floatRight">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="mercedes">Mercedes</option>
-											<option value="audi">Audi</option>
-										</select>
+											</ul>	
 																				
-	
+										</div>
 									</div>	<br/>	
 									
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Ajouter expériences</label>
-											<input type="text" type="text" name="userName" placeholder="2012-2016..." class="col-xs-10 floatRight"/>
+											
+											<select id="userCompany" class="col-xs-10 floatRight">
+											<option value="Project manager">Project manager</option>
+											<option value="Scrum master">Scrum master</option>
+											<option value="Programmer">Programmer</option>
+											<option value="Web Analyst">Web Analyst</option>
+											<option value="Business analyst">Business analyst</option>
+											<option value="Architect">Architect</option>
+											<option value=">Developper">Developper</option>
+											<option value="Software engineer">Software engineer</option>
+
+											
+										</select><br />
+											
+											
+											
 											<br />
-											<select class="col-xs-10 floatRight">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="mercedes">Mercedes</option>
-											<option value="audi">Audi</option>
-										</select>
-																			
+											<select id="userCompanyYears" class="col-xs-10 floatRight">
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="4">5</option>
+											<option value="4">6</option>
+											<option value="4">7</option>
+											<option value="4">8</option>
+											<option value="4">9</option>
+											
+										</select><br />
+												<input class="col-xs-10 floatRight btnRouge" type="submit" value="ajouter" onclick="updateExperiences()" id="btnUpdateExperiences" />								
 									</div><br />
 									
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Vos expériences</label>
-<input tyspe="text" type="text" name="userName" value="2014-2015" class="col-xs-10 floatRight"/>	<br />
-										<select class="col-xs-10 floatRight">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="mercedes">Mercedes</option>
-											<option value="audi">Audi</option>
-										</select>	
-										
-										
-											<input tyspe="text" type="text" name="userName" value="2009-2009" class="col-xs-10 floatRight"/>	<br />
-											<select class="col-xs-10 floatRight">
-											<option value="volvo">Volvo</option>
-											<option value="saab">Saab</option>
-											<option value="mercedes">Mercedes</option>
-											<option value="audi">Audi</option>
-										</select>	
+											<div class="col-xs-10 floatRight textAlignLeft">
+											<ul id="listExperiences">										
+											</ul>	
+																				
+										</div>
 																				
 	
 									</div>	
@@ -230,36 +442,27 @@
 								<div class="ac-content">
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Salaire attendu(par heure)</label>
-										<input type="number" type="text" name="userName" placeholder="35" class="col-xs-10 floatRight"/>
+										<input type="text" id="userSalary" type="text" name="userName" placeholder="35" class="col-xs-10 floatRight"/>
 
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Déplacement maximale(en km)</label>
-										<input type="number" type="text" name="userName" placeholder="35" class="col-xs-10 floatRight"/>
+										<input type="text" id="userKm" type="text" name="userName" placeholder="35" class="col-xs-10 floatRight"/>
 									</div><br />
 									
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Voiture ?</label>
-										<input type="checkbox" name="vehicle" value="yes" class="floatRight"><br>
+										<input type="checkbox" id="userCar" name="vehicle" value="yes" class="floatRight"><br>
 									</div><br />
 									
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Horaire flexible ?</label>
-										<input type="checkbox" name="horaire" value="yes" class="floatRight"><br>
-									</div><br />
-									
-									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Type de contrat</label>
-										<select class="col-xs-10 floatRight">
-											<option value="contract">Contrat</option>
-											<option value="salary">Salarié</option>
-											<option value="pigiste">Pigiste</option>
-										</select>	
+										<input type="checkbox" id="userFlexible" name="horaire" value="yes" class="floatRight"><br>
 									</div><br />
 								</div>
 							</div>
 						<input class="btnRouge floatRight" type="submit" name="btnAnnuler" value="Annuler" />
-						<input class="btnRouge floatRight" type="submit" name="btnSave" value="Sauvergarder" />
+						<input class="btnRouge floatRight" type="submit" id="btnSaveChanges" onclick="updateUser()" name="btnSave" value="Sauvergarder" />
 						</div>
 					</div>
 </div>   

@@ -25,7 +25,8 @@ $.ajax({
     dataType:"jsonp",
     data: {
         email : useremail,
-        password: password
+        password: password,
+		method: "POST"
 
         // if not a facebook user
     }
@@ -94,6 +95,11 @@ $.ajax({
     url: "API/users",
     data : {
         add_skills : [{name:"c#",weight:2},{name:"html",weight:1},{name:"javascript", weight:3},{name:"c++",weight:1}, {name:"css",weight:2}],
+		
+				    [{name:"PHP",weight:3},{name:"HTML",weight:2},{name:"C++",weight:3}]
+		
+		
+		
        remove_skills:[{name:"c#"}],
         description : "test",
         add_experiences : [{name:"gestion de projet", annees:2}, {name:"programmation", annees:5}],
