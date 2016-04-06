@@ -87,18 +87,18 @@ $.ajax({
     	  var ul = document.getElementById("listSchools");
   		  for (var i = 0; i < data.API_RESPONSE.studies.length; ++i) {
   		  var li = document.createElement("li");
-  		  li.appendChild(document.createTextNode(data.API_RESPONSE.studies[i].establishment + " - "+ data.API_RESPONSE.studies[i].yearFinished + " - "+ data.API_RESPONSE.studies[i].degree));
+  		  li.appendChild(document.createTextNode(data.API_RESPONSE.studies[i].university + " - "+ data.API_RESPONSE.studies[i].yearFinished + " - "+ data.API_RESPONSE.studies[i].name));
           ul.appendChild(li);
     	  }
     	  
     	  var ul = document.getElementById("listExperiences");
-  		  for (var i = 0; i < data.API_RESPONSE.studies.length; ++i) {
-  		  var li = document.createElement("li");
-  		  li.appendChild(document.createTextNode(data.API_RESPONSE.experiences[i].name + " - "+ data.API_RESPONSE.experiences[i].annees));
+	  		  for (var i = 0; i < data.API_RESPONSE.experiences.length; ++i) {
+	  		  var li = document.createElement("li");
+	  		  li.appendChild(document.createTextNode(data.API_RESPONSE.experiences[i].name + " - "+ data.API_RESPONSE.experiences[i].annees));
           ul.appendChild(li);
-    	  }
-    	document.getElementById("userName").value = data.API_RESPONSE.lastName;
-    	document.getElementById("userFirstName").value= data.API_RESPONSE.firstName;
+    	 }
+    	document.getElementById("userName").value = data.API_RESPONSE.lastname;
+    	document.getElementById("userFirstName").value= data.API_RESPONSE.firstname;
     	document.getElementById("userDesc").value = data.API_RESPONSE.description;
     	document.getElementById("userEmail").value = email;
     	document.getElementById("userPhone").value = data.API_RESPONSE.description;
@@ -109,6 +109,14 @@ $.ajax({
     		hasCar = false;
     	}
     	document.getElementById("userCar").checked = hasCar;
+    	
+    	var flexible = true;
+    	if(data.API_RESPONSE.scheduleFlexibility == "false"){
+    		flexible = false;
+    	}
+    	document.getElementById("userFlexible").checked = flexible;
+    	
+    	
 
 		console.log(data.API_RESPONSE.email);
     	
@@ -151,6 +159,9 @@ function updateExperiences()
 
 function updateUser()
 {
+	var dataSkills = {
+	    add_skills: []
+	};
 
 // Générer la string pour les skills
 var skills = "[";
@@ -175,27 +186,36 @@ for (var i = 0; i < items.length; ++i) {
 	if (myArray[1]== "débutant"){
 		myArray[1] ="1";
 	}
-				
-   skills += "{name:\""+myArray[0]+"\",weight:"+myArray[1]+"}"+lastThing+"";
-}
-skills += "]";
-console.log(skills);
 
-var studies = "[";
+    dataSkills.add_skills.push({ 
+        "name" : myArray[0],
+        "weight"  : myArray[1],
+    });
+
+
+}
+
+	var dataStudies = {
+	    add_studies: []
+	};
+
 var ul = document.getElementById("listSchools");
 var items = ul.getElementsByTagName("li");
 for (var i = 0; i < items.length; ++i) {
 	var valueToSeperate = items[i].innerHTML ;
 	var myArray = valueToSeperate.split ( " - " );
 	var lastThing =",";
-	if(i==items.length-1)
-		{
-			lastThing ="";
-		}
-				
-   studies+= "{establishment:\""+myArray[0]+"\",yearFinished:"+myArray[1]+",degree:\""+myArray[2]+"\"}"+lastThing+"";
+
+	    dataStudies.add_studies.push({ 
+        "name" : myArray[2],
+        "yearFinished"  : myArray[1],
+        "university" : myArray[0],
+    });
 }
-studies += "]";
+
+	var dataExperiences = {
+	    add_experiences: []
+	};
 
 var experiences ="[";
 var ul = document.getElementById("listExperiences");
@@ -204,18 +224,15 @@ for (var i = 0; i < items.length; ++i) {
 	var valueToSeperate = items[i].innerHTML ;
 	var myArray = valueToSeperate.split ( " - " );
 	var lastThing =",";
-	if(i==items.length-1)
-		{
-			lastThing ="";
-		}
-				
-   experiences+= "{name:\""+myArray[0]+"\",annees:"+myArray[1]+"}"+lastThing+"";
+
+	    dataExperiences.add_experiences.push({ 
+        "name" : myArray[0],
+        "annees"  : myArray[1],
+    });
 }
-experiences += "]";
 
 
-console.log(studies);
-console.log(experiences);
+console.log(dataSkills);
 var firstName = document.getElementById("userFirstName").value;
 var lastName = document.getElementById("userName").value;
 var description = document.getElementById("userDesc").value;
@@ -231,10 +248,10 @@ $.ajax({
     cache : false,
     url: "http://149.56.109.218/API/users",
     data : {
-        add_skills : skills,
+    	add_skills: dataSkills.add_skills,
         description : description,
-        add_experiences : experiences,
-        add_studies : studies,
+        add_experiences : dataExperiences.add_experiences,
+        add_studies : dataStudies.add_studies,
         anticipated_salary : salary,
         max_distance : km,
         has_car : car,
@@ -247,7 +264,7 @@ $.ajax({
     dataType:"jsonp"})
     .done(function(data){
     	console.log(data);
-    	window.location.replace("profile.html");
+    	//window.location.replace("profile.html");
     }).fail(function(xhr, status, error)
 	{
 	alert(xhr.responseText);
@@ -309,11 +326,11 @@ $.ajax({
 								<div class="ac-content">
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Nom</label>
-										<input type="text" type="text" id="userName" name="userName" placeholder="John..." class="col-xs-10 floatRight beauInput"/>
+										<input type="text" type="text" id="userName" name="userName" placeholder="Nom..." class="col-xs-10 floatRight beauInput"/>
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Prénom</label>
-										<input type="text" type="text"  id="userFirstName" name="userFirstName" placeholder="Doe..." class="col-xs-10 floatRight"/>
+										<input type="text" type="text"  id="userFirstName" name="userFirstName" placeholder="Prénom" class="col-xs-10 floatRight"/>
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Description</label>
@@ -352,7 +369,7 @@ $.ajax({
 								<div class="ac-content">
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Courriel</label>
-										<input type="email" type="text" disabled id="userEmail" name="userName" placeholder="john.doh@gmail.com" class="col-xs-10 floatRight"/>
+										<input type="email" type="text" disabled id="userEmail" name="userName" placeholder="courriel" class="col-xs-10 floatRight"/>
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Téléphone</label>
@@ -361,7 +378,7 @@ $.ajax({
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Ajouter études</label>
 										<input tyspe="text" type="text" id="userSchool" name="userName" placeholder="École..." class="col-xs-10 floatRight"/>	<br />
-										<input tyspe="text" type="text" id="userSchoolYear" name="userName" placeholder="2012-2016..." class="col-xs-10 floatRight"/><br />
+										<input tyspe="text" type="text" id="userSchoolYear" name="userName" placeholder="Année de complétion" class="col-xs-10 floatRight"/><br />
 											<select id="userSchoolDiploma" class="col-xs-10 floatRight">
 											<option value="Genie Logiciel">Genie Logiciel</option>
 											<option value="Genie TI">Genie TI</option>
@@ -407,11 +424,11 @@ $.ajax({
 											<option value="2">2</option>
 											<option value="3">3</option>
 											<option value="4">4</option>
-											<option value="4">5</option>
-											<option value="4">6</option>
-											<option value="4">7</option>
-											<option value="4">8</option>
-											<option value="4">9</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+											<option value="7">7</option>
+											<option value="8">8</option>
+											<option value="9">9</option>
 											
 										</select><br />
 												<input class="col-xs-10 floatRight btnRouge" type="submit" value="ajouter" onclick="updateExperiences()" id="btnUpdateExperiences" />								
