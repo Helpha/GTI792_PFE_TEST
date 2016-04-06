@@ -48,6 +48,47 @@
     <link rel="stylesheet" href="assets/Stryzhevskyi-rangeSlider-9ee0e55/src/rangeSlider.css">
     <!--<link rel="stylesheet" href="rangeSlider-flat.css">-->
     
+    
+    <script type="text/javascript">
+        var token = localStorage.getItem("token");
+	var email = localStorage.getItem("email");
+    getUserOffers();
+
+		function getUserOffers()
+		{
+			$.ajax({
+		    type:'GET',
+		    cache : false,
+		    url: "http://149.56.109.218/API/offers",
+		    dataType:"jsonp",
+			data : {
+			email :email,
+			token : token,
+			method : "GET",
+			postings : true
+		}})
+		    .done(function(data){
+		    	console.log(data);
+		    	  var ul = document.getElementById("listJobs");
+			  		  for (var i = 0; i < data.API_RESPONSE.length; ++i) {
+			  		  var li = document.createElement("li");
+						var a = document.createElement("a");
+						a.textContent = data.API_RESPONSE[i].title;
+						a.setAttribute('href', "editOffer.html?id="+data.API_RESPONSE[i].id);
+						li.appendChild(a);
+						ul.appendChild(li);
+		    	 }
+		
+		    }).fail(function(xhr, status, error)
+			{
+			alert(xhr.responseText);
+			}).always(function(){
+		            //alert("ajax");
+		    });
+		}
+    	
+    </script>
+    
 
 
     </head>
@@ -90,17 +131,11 @@
 					<div class="center">
 					<div class="col-sm-12">
 						<H3>Vos offres en cours</H3>
-						<row>
-							<div class="col-xs-10 floatRight textAlignLeft">
-								<H3><a href="editOffer.html?id=2323323">PROGRAMMEUR-ANALYSTE</a> <a href="matchJob.html?id=1283329">(1 match...)</a></H2>
-							</div>
-						</row>
-						
-						<row>
-							<div class="col-xs-10 floatRight textAlignLeft">
-								<H3><a href="editOffer.html?id=23397213">ANALYSTE</a></H2>
-							</div>
-						</row>
+										<div class="col-xs-10 floatRight textAlignLeft">
+											<ul id="listJobs">
+											
+											</ul>										
+										</div>
 						
 						
 						

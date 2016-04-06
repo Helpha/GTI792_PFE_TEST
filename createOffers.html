@@ -44,7 +44,41 @@
 <script type="text/javascript">
 var token = localStorage.getItem("token");
 var email = localStorage.getItem("email");
-	function updateSkills()
+getSkillsList();
+function getSkillsList()
+{
+	
+	$.ajax({
+    type:'GET',
+    cache : false,
+    url: "http://149.56.109.218/API/skills",
+    dataType:"jsonp",
+	data : {
+	email :email,
+	token : token,
+	method : "GET"
+
+}})
+    .done(function(data){
+    	console.log(data);
+		    select = document.getElementById('ddlSkill');
+			for (var i = 0; i<data.API_RESPONSE.length; i++){
+			    var opt = document.createElement('option');
+			    opt.value = data.API_RESPONSE[i].name;
+			    opt.innerHTML = data.API_RESPONSE[i].name;
+			    select.appendChild(opt);
+			}
+	
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+	
+}
+
+function updateSkills()
 {
 	
 		skill = document.getElementById("ddlSkill").value;
@@ -55,33 +89,37 @@ var email = localStorage.getItem("email");
 
 function postOffer()
 {
+		var dataSkills = {
+	    add_skills: []
+	};
 	alert(token);
-	var skills = "[";
 	var ul = document.getElementById("listSkills");
 	var items = ul.getElementsByTagName("li");
 	for (var i = 0; i < items.length; ++i) {
-		var valueToSeperate = items[i].innerHTML ;
-		var myArray = valueToSeperate.split ( " - " );
-		var lastThing =",";
-		if(i==items.length-1)
-			{
-				lastThing ="";
-			}
-		if (myArray[1]== "expert"){
-			myArray[1] = "3";
-		}	
-		
-		if (myArray[1]== "intermédiaire"){
-			myArray[1] = "2";
+	var valueToSeperate = items[i].innerHTML ;
+	var myArray = valueToSeperate.split ( " - " );
+	var lastThing =",";
+	if(i==items.length-1)
+		{
+			lastThing ="";
 		}
-		
-		if (myArray[1]== "débutant"){
-			myArray[1] ="1";
-		}
-					
-	   skills += "{name:\""+myArray[0]+"\",weight:"+myArray[1]+"}"+lastThing+"";
+	if (myArray[1]== "expert"){
+		myArray[1] = "1";
+	}	
+	
+	if (myArray[1]== "intermédiaire"){
+		myArray[1] = "2";
 	}
-	skills += "]";
+	
+	if (myArray[1]== "débutant"){
+		myArray[1] ="3";
+	}
+
+    dataSkills.add_skills.push({ 
+        "name" : myArray[0],
+        "weight"  : myArray[1],
+    });
+   }
 		
 	var job = document.getElementById("jobTitle").value;
 	var shortDesc = document.getElementById("jobShortDesc").value;
@@ -103,20 +141,17 @@ $.ajax({
     cache : false,
     url: "http://149.56.109.218/API/offers",
     data : {
-    	//High/low salary
-    	//ContractType
-    	//Avantages ?
-    	//Name ?
-        userId : "0",
         title : job,
         shortDescription : shortDesc,
-        skills : skills,
+      	add_skills: dataSkills.add_skills,
         horaires : schedule,
-        teamsize : teamSize,
+        teamSize : teamSize,
         longDescription : longDesc,
-        salary : "35000",
-        avantagesSociaux : {avantage1 : "avantage1", avantage2 : "avantage2"},
-        contractInfo : {firstname : "TEST", lastname : "TEST", phonenumber:phoneContact, email : emailContact},
+        highSalary :maxSalary,
+        lowSalary :minSalary,
+        avantagesSociaux :avantages,
+        contactPhone:phoneContact,
+        contactEmail:emailContact,       
         offersBegin : startOffer,
         offersEnd : endOffer,
         needCar : hasCar,
@@ -189,7 +224,7 @@ $.ajax({
 								<div class="ac-content">
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Poste</label>
-										<input type="text" type="text" id="jobTitle" name="jobTitle" placeholder="John..." class="col-xs-10 floatRight beauInput"/>
+										<input type="text" type="text" id="jobTitle" name="jobTitle" placeholder="Programmeur..." class="col-xs-10 floatRight beauInput"/>
 									</div><br />	
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Courte description</label>
@@ -198,9 +233,7 @@ $.ajax({
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Ajouter une compétence</label>
 										<select id="ddlSkill" class="col-xs-10 floatRight">
-											<option value="word">Word</option>
-											<option value="csharp">C#</option>
-											<option value="php">PHP</option>
+
 										</select><br />	
 										<select id="ddlSkillLevel" class="col-xs-10 floatRight">
 											<option value="débutant">Débutant</option>
@@ -238,7 +271,7 @@ $.ajax({
 									
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Longue description description</label>
-										 <textarea id="jobLongDesc" placeholder="Courte description..." name="longdesc" rows="12" cols="40" class="col-xs-10 floatRight"></textarea>
+										 <textarea id="jobLongDesc" placeholder="Longue description..." name="longdesc" rows="12" cols="40" class="col-xs-10 floatRight"></textarea>
 									</div><br />
 									
 									<div class="row">

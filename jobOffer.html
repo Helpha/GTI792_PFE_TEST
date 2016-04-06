@@ -41,6 +41,72 @@
 
     	<script src="js/jquery.js"></script>
 
+<script type="text/javascript">
+var token = localStorage.getItem("token");
+var email = localStorage.getItem("email");
+getOffers();
+
+
+//http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)", "i"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function getOffers()
+{
+	var idJob = getParameterByName('id');
+$.ajax({
+    type:'GET',
+    cache : false,
+    url: "http://149.56.109.218/API/offers",
+    dataType:"jsonp",
+	data : {
+	email :email,
+	token : token,
+	method : "GET",
+	jobId : idJob
+}})
+    .done(function(data){
+    	console.log(data);
+	    	document.getElementById("jobTitle").value = data.API_RESPONSE[0].title;
+	    	document.getElementById("longDesc").innerHTML  = data.API_RESPONSE[0].longDescription;
+	    	document.getElementById("schedule").value  = data.API_RESPONSE[0].horaires;
+	    	document.getElementById("teamSize").value  = data.API_RESPONSE[0].teamSize;
+	    	document.getElementById("salaryHigh").value = data.API_RESPONSE[0].highSalary;
+	    	document.getElementById("salaryLow").value = data.API_RESPONSE[0].lowSalary;
+	    	document.getElementById("avantages").value = data.API_RESPONSE[0].avantagesSociaux;
+	    	document.getElementById("emailContact").value  = data.API_RESPONSE[0].contactEmail;
+	    	document.getElementById("phoneContact").value  = data.API_RESPONSE[0].contactPhone;
+	    	var ul = document.getElementById("listSkills");
+    	   
+	    	ul.innerHTML = "";
+	  		for (var i = 0; i < data.API_RESPONSE[0].skills.length; ++i) {
+	  		  var li = document.createElement("li");
+	  		  li.appendChild(document.createTextNode(data.API_RESPONSE[0].skills[i].name));
+	          ul.appendChild(li);
+	    	}
+	    	
+	    	
+ 	
+
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+}
+	
+	
+	
+</script>
+
 
 
 
@@ -89,52 +155,52 @@
 								<div class="ac-content">
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Poste</label>
-										<input type="text" disabled ="text" name="jobTitle" placeholder="John..." class="col-xs-10 floatRight beauInput"/>
+										<input type="text" id="jobTitle" disabled ="text" name="jobTitle" placeholder="John..." class="col-xs-10 floatRight beauInput"/>
 									</div><br />	
 						
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Compétences recherchées</label>
 										<div class="col-xs-10 floatRight textAlignLeft">
-											<a>PHP<a>																							
-											<a>HTML<a>
-											<a>C++<a>											
+											<ul id="listSkills">
+											
+											</ul>										
 										</div>
 									</div>	
 										
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Horaire</label>
-										<input type="text" disabled type="text" name="jobSchedule" placeholder="9:00 à 5:00" class="col-xs-10 floatRight beauInput"/>
+										<input type="text" id="schedule" disabled type="text" name="jobSchedule" placeholder="9:00 à 5:00" class="col-xs-10 floatRight beauInput"/>
 									</div><br />
 									
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Grosseur de l'équipe</label>
-										<input type="text" disabled type="text" name="teamSize" placeholder="Environ 15 personnes" class="col-xs-10 floatRight beauInput"/>
+										<input type="text" id="teamSize" disabled type="text" name="teamSize" placeholder="Environ 15 personnes" class="col-xs-10 floatRight beauInput"/>
 									</div><br />
 									
 									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Longue description description</label>
-										 <textarea disabled placeholder="Courte description..." name="longdesc" rows="12" cols="40" class="col-xs-10 floatRight"></textarea>
+										<label  class="col-sm-1 textAlignLeft">Longue description</label>
+										 <textarea id ="longDesc" disabled placeholder="Longue description..." name="longdesc" rows="12" cols="40" class="col-xs-10 floatRight"></textarea>
 									</div><br />
 									
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Salaire offert ($/heure)</label>
-										 <input type="text" disabled type="text" name="jobSalaryHigh" placeholder="maximum" class="col-xs-4 floatRight beauInput"/>
+										 <input type="text" id="salaryHigh" disabled type="text" name="jobSalaryHigh" placeholder="maximum" class="col-xs-4 floatRight beauInput"/>
 										 <label class="col-xs-2 floatRight beauInput" style="margin-top:10px;"> à </label>
-										 <input type="text" disabled type="text" name="jobSalaryLow" placeholder="minimum" class="col-xs-4 floatRight beauInput"/>										 
+										 <input type="text" id="salaryLow" disabled type="text" name="jobSalaryLow" placeholder="minimum" class="col-xs-4 floatRight beauInput"/>										 
 									</div><br />
 									
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Avantages sociaux</label>
-										 <input type="text" disabled type="text" name="avantages" placeholder="Char payé, Collation payées" class="col-xs-10 floatRight beauInput"/>										 
+										 <input type="text" id="avantages" disabled type="text" name="avantages" placeholder="Char payé, Collation payées" class="col-xs-10 floatRight beauInput"/>										 
 									</div><br />
 
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Courriel</label>
-										<input type="email" disabled type="text" name="emailContact" placeholder="john.doh@gmail.com" class="col-xs-10 floatRight"/>
+										<input type="email" id="emailContact" disabled type="text" name="emailContact" placeholder="john.doh@gmail.com" class="col-xs-10 floatRight"/>
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Téléphone</label>
-										<input type="tel" disabled type="text" name="phoneContact" placeholder="555-555-5555" class="col-xs-10 floatRight"/>
+										<input type="tel" disabled id="phoneContact" type="text" name="phoneContact" placeholder="555-555-5555" class="col-xs-10 floatRight"/>
 									</div><br />
 										
 										

@@ -71,29 +71,28 @@ $.ajax({
     .done(function(data){
     	console.log(data);
     	
-    	    	  //var ul = document.getElementById("listExperiences");
-  		  //for (var i = 0; i < data.API_RESPONSE.studies.length; ++i) {
-  		  //var li = document.createElement("li");
-  		  //li.appendChild(document.createTextNode(data.API_RESPONSE.experiences[i].name + " - "+ data.API_RESPONSE.experiences[i].annees));
-          //ul.appendChild(li);
-    	 // }
- 		if(data.API_RESPONSE[0] == null)
+    	   
+    	 
+ 		if(data.API_RESPONSE.length == 0)
  		{
- 			alert("null alert");
  			    document.getElementById("valueSilder").style.display = "none";
  			    document.getElementById("slider").style.display = "none";
  			    document.getElementById("title").style.display = "none";
  			    document.getElementById("shortDesc").style.display = "none";
  			     document.getElementById("message").innerHTML = "Aucune offre disponible";
- 			    
-       			
- 			
- 			
- 			
  		}	else{
 	 		idOffer = data.API_RESPONSE[0].id;
-	    	document.getElementById("title").innerHTML = data.API_RESPONSE[0].name;
+	    	document.getElementById("title").innerHTML = data.API_RESPONSE[0].title;
 	    	document.getElementById("shortDesc").innerHTML  = data.API_RESPONSE[0].shortDescription;
+	    	var ul = document.getElementById("listSkills");
+    	   
+    	   ul.innerHTML = "";
+  		  for (var i = 0; i < data.API_RESPONSE[0].skills.length; ++i) {
+  		  var li = document.createElement("li");
+  		  li.appendChild(document.createTextNode(data.API_RESPONSE[0].skills[i].name));
+          ul.appendChild(li);
+	    	 }
+	    	
  		}
 
 
