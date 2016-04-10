@@ -73,7 +73,7 @@ function getUserMatchs()
 			
 			
 					if(currentMatchingJobId==-1){
-						alert("moins 1");
+						
 					var ul = document.getElementById("listJobs");
 			  		  for (var i = 0; i < data.API_RESPONSE.length; ++i) {
 			  		  var li = document.createElement("li");
@@ -99,7 +99,6 @@ function getUserMatchs()
 function getJobMatches()
 
 {
-	alert(currentMatchingJobId);
 	{
 	$.ajax({
     type:'GET',
@@ -213,7 +212,7 @@ function getUserOffers()
     </header><!--/header-->
 
         <!-- Top content -->
-<div class="container">7
+<div class="container">
 						<row>
 						<div class="col-xs-10 floatRight textAlignLeft">
 							<br /><br /><br />

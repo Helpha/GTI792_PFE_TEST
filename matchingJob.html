@@ -101,8 +101,9 @@ function getUserForOffers()
 }})
     .done(function(data){
     	console.log(data);
-    	document.getElementById('name').innerHTML = data.API_RESPONSE[0].firstname + " " + data.API_RESPONSE[0].lastname;
-    	document.getElementById('shortDesc').innerHTML = data.API_RESPONSE[0].desc;
+    	if(data.API_RESPONSE.length != 0){
+    		document.getElementById('name').innerHTML = data.API_RESPONSE[0].firstname + " " + data.API_RESPONSE[0].lastname;
+    	document.getElementById('shortDesc').innerHTML = data.API_RESPONSE[0].description;
 			    userBeingNoted = data.API_RESPONSE[0].email;
 		var ul = document.getElementById("listSkills");
     	   
@@ -112,6 +113,16 @@ function getUserForOffers()
 	  		  li.appendChild(document.createTextNode(data.API_RESPONSE[0].skills[i].name));
 	          ul.appendChild(li);
 		}
+    	}else{
+
+ 			    document.getElementById("valueSilder").style.display = "none";
+ 			    document.getElementById("slider").style.display = "none";
+ 			    document.getElementById("name").style.display = "none";
+ 			    document.getElementById("shortDesc").style.display = "none";
+ 			    document.getElementById("listSkills").style.display = "none";
+ 			     document.getElementById("message").innerHTML = "Aucun candidat disponible";
+ 		}
+    	
     }).fail(function(xhr, status, error)
 	{
 	alert(xhr.responseText);
@@ -233,7 +244,7 @@ $.ajax({
 					</div>
 
 					<div class="col-sm-12">
-					    <h2>Votre note</h2>
+					    <h2><a id="message">Votre note</a></h2>
 					          	<input type="range" id="slider" min="0" max="5" step="0.10" value="" onchange="postNote()" data-rangeSlider>
 						        <output id="valueSilder"></output>
 						
