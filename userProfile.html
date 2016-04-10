@@ -41,7 +41,73 @@
 
     	<script src="js/jquery.js"></script>
 
+<script type="text/javascript">
+var token = localStorage.getItem("token");
+var email = localStorage.getItem("email");
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)", "i"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
 
+var idUser = getParameterByName('id');
+getUserParams();
+	function getUserParams(){
+		$.ajax({
+    type:'GET',
+    cache : false,
+    url: "http://149.56.109.218/API/users",
+    data : {email : email, token : token, method :'GET', usertoget : idUser},
+    dataType:"jsonp"})
+	.done(function(data){
+    	console.log(data);
+    	document.getElementById("userLastName").value = data.API_RESPONSE.lastname;
+    	document.getElementById("userFirstName").value =data.API_RESPONSE.firstname;
+    	document.getElementById("userLongDesc").value = data.API_RESPONSE.description;
+    	document.getElementById("userEmail").value =data.API_RESPONSE.email;
+
+    	
+    	
+    	
+    	
+    	
+    	  var ul = document.getElementById("listStudies");
+  		  for (var i = 0; i < data.API_RESPONSE.studies.length; ++i) {
+  		  var li = document.createElement("li");
+  		  li.appendChild(document.createTextNode(data.API_RESPONSE.studies[i].university + " - "+ data.API_RESPONSE.studies[i].yearFinished + " - "+ data.API_RESPONSE.studies[i].name));
+          ul.appendChild(li);
+    	  }
+    	
+    	 var ul = document.getElementById("listExperiences");
+	  		  for (var i = 0; i < data.API_RESPONSE.experiences.length; ++i) {
+	  		  var li = document.createElement("li");
+	  		  li.appendChild(document.createTextNode(data.API_RESPONSE.experiences[i].name + " - "+ data.API_RESPONSE.experiences[i].annees));
+          ul.appendChild(li);
+    	 }
+    	
+    	  var ul = document.getElementById("listSkills");
+	  		  for (var i = 0; i < data.API_RESPONSE.skills.length; ++i) {
+	  		  var li = document.createElement("li");
+	  		  li.appendChild(document.createTextNode(data.API_RESPONSE.skills[i].name));
+          ul.appendChild(li);
+    	 }
+    	
+					
+				
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+}
+	
+	
+</script>
 
 
     </head>
@@ -89,55 +155,50 @@
 								<div class="ac-content">
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Nom</label>
-										<input type="text" disabled type="text" name="userName" placeholder="John..." class="col-xs-10 floatRight beauInput"/>
+										<input type="text" disabled id="userLastName" type="text" name="userName" placeholder="John..." class="col-xs-10 floatRight beauInput"/>
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Prénom</label>
-										<input type="text" disabled type="text" name="userName" placeholder="Doe..." class="col-xs-10 floatRight"/>
+										<input type="text" disabled id="userFirstName" type="text" name="userName" placeholder="Doe..." class="col-xs-10 floatRight"/>
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Description</label>
-										 <textarea placeholder="Courte description..." disabled  name="desc" rows="12" cols="40" class="col-xs-10 floatRight"></textarea>
+										 <textarea id="userLongDesc" placeholder="Longue description..." disabled  name="desc" rows="12" cols="40" class="col-xs-10 floatRight"></textarea>
 									</div><br />
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Compétences</label>
-										<div class="col-xs-10 floatRight textAlignLeft">
-											<a>PHP<a>																							
-											<a>HTML<a>
-											<a>C++<a>											
+												<div class="col-xs-10 floatRight textAlignLeft">
+											<ul id="listSkills">
+											
+											</ul>										
 										</div>
 									</div>	<br/>
 				
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Études</label>
-										<input tyspe="text" disabled type="text" name="studySchool" value="ÉTS" class="col-xs-10 floatRight"/><br />	
-										<input tyspe="text" disabled  type="text" name="studyYear" value="2012-2016" class="col-xs-10 floatRight"/><br />
-										<input tyspe="text" disabled type="text" name="studyDiploma" value="GTI" class="col-xs-10 floatRight"/><br /><br />	
-																				
-										<input type="text" disabled type="text" name="userName" value="CEGEP de Rivière-du-Loup" class="col-xs-10 floatRight"/>	<br />		
-										<input type="text"  disabled type="text" name="userName" value="2019-2012" class="col-xs-10 floatRight"/><br />	
-										<input tyspe="text" disabled type="text" name="studyDiploma" value="Techniques informatique" class="col-xs-10 floatRight"/>											
-	
+																				<div class="col-xs-10 floatRight textAlignLeft">
+											<ul id="listStudies">
+											
+											</ul>										
+										</div>
 									</div>	<br/>	
 									
 									
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Expériences</label>
-										<input type="text" disabled name="expName" class="col-xs-10 floatRight" value="Biron" /><br />
-										<input type="text"  disabled type="expYear" name="userName" value="2014-2015" class="col-xs-10 floatRight"/>	<br />
-										<input type="text"  disabled name="expName" class="col-xs-10 floatRight" value="CGI" />											
-										<input type="text"  disabled type="expYear" name="userName" value="2009-2009" class="col-xs-10 floatRight"/>											
+																				<div class="col-xs-10 floatRight textAlignLeft">
+											<ul id="listExperiences">
+											
+											</ul>										
+										</div>
 	
 									</div>
 									
 									<div class="row">
 										<label  class="col-sm-1 textAlignLeft">Courriel</label>
-										<input type="email"  disabled type="text" name="userName" placeholder="john.doh@gmail.com" class="col-xs-10 floatRight"/>
+										<input type="email" id="userEmail" disabled type="text" name="userName" placeholder="john.doh@gmail.com" class="col-xs-10 floatRight"/>
 									</div><br />
-									<div class="row">
-										<label  class="col-sm-1 textAlignLeft">Téléphone</label>
-										<input type="tel"  disabled type="text" name="userName" placeholder="555-555-5555" class="col-xs-10 floatRight"/>
-									</div><br />	
+									
 										
 																		
 								</div>

@@ -37,20 +37,39 @@
         <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
    	    <script src="js/jquery.js"></script>
 <script>
-$(document).ready(function() {
-	alert("Your book is overdusse.");
-    $("input[name$='type']").click(function() {
-        var test = $(this).val();
-		
-		if(test == 1){		
-	    $("#infosParticuliers").hide();
-		}
-		
-		if(test == 2){		
-	    $("#infosParticuliers").show();
-		}
+
+function createUser(){
+	var email = document.getElementById('form-username').value;
+	var password =document.getElementById('form-password').value;
+	var firstName = document.getElementById('form-firstName').value;
+	var lastName = document.getElementById('form-lastName').value;
+	alert(firstName + lastName);
+	$.ajax({
+    type:'put',
+    cache : false,
+    url: "http://149.56.109.218/API/users",
+    data : {
+		email: email,
+		password : password,
+		first_name : firstName,
+		last_name : lastName,
+        method: "PUT"
+        },
+    dataType:"jsonp"})
+    .done(function(data){
+    	console.log(data);
+    	//window.location.replace("profile.html");
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
     });
-});
+}
+
+
+
+
 </script>
 
 
@@ -91,7 +110,7 @@ $(document).ready(function() {
                         		</div>
                             </div>
                             <div class="form-bottom">
-			                    <form role="form" action="" method="post" class="login-form">
+			                  
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="form-username">Adresse courriel</label>
 			                        	<input type="text" name="form-username" placeholder="adresse courriel..." class="form-username form-control" id="form-username">
@@ -103,22 +122,16 @@ $(document).ready(function() {
 			                        
 			                        <div class="form-group">
 			                        	<label class="sr-only" for="form-password">Confirmez votre mot de passe</label>
-			                        	<input type="password" name="form-password-confirm" placeholder="confirmez mot de passe" class="form-password form-control" id="form-password">
+			                        	<input type="password" name="form-password-confirm" placeholder="confirmez mot de passe" class="form-password form-control" id="form-password2">
 			                        </div>
 			                        
-			                           <div class="form-group">
-			                           	Type de compte :  
-										  <input type="radio" name="type" value="1" id="entreprise"> Entreprise
-										  <input type="radio" name="type" value="2" id="particulier">Particulier<br>										  
-			                           </div>
 			                        
-			                        	<div class="form-group" style="display: none" id="infosParticuliers"> 
-											<input type="text" name="userFirstName" placeholder="prénom" class="form-password form-control" id="form-password">
-				                        	<input type="text" name="userLastName" placeholder="nom" class="form-password form-control" id="form-password">									  
+			                        	<div class="form-group" id="infosParticuliers"> 
+											<input type="text" name="userFirstName" placeholder="prénom" class="form-password form-control" id="form-firstName">
+				                        	<input type="text" name="userLastName" placeholder="nom" class="form-password form-control" id="form-lastName">									  
 			                           	</div>
 
-			                        <button type="submit" class="btn">Enregistrer</button>
-			                    </form>
+			                        <button type="submit" class="btn" onclick="createUser()">Enregistrer</button>
 		                    </div>
                         </div>
                     </div>

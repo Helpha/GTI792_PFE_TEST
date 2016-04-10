@@ -48,7 +48,136 @@
     <link rel="stylesheet" href="assets/Stryzhevskyi-rangeSlider-9ee0e55/src/rangeSlider.css">
     <!--<link rel="stylesheet" href="rangeSlider-flat.css">-->
     
+<script type="text/javascript">
+var token = localStorage.getItem("token");
+var email = localStorage.getItem("email");
+var currentMatchingJobId;
+var userBeingNoted;
+getUserOffers();
 
+function getUserMatchs()
+{
+	$.ajax({
+    type:'GET',
+    cache : false,
+    url: "http://149.56.109.218/API/matches",
+    dataType:"jsonp",
+	data : {
+	email :email,
+	token : token,
+	matchuser : true,
+	method : "GET",
+}})
+    .done(function(data){
+    	console.log(data);
+			
+			
+					if(currentMatchingJobId==-1){
+						alert("moins 1");
+					var ul = document.getElementById("listJobs");
+			  		  for (var i = 0; i < data.API_RESPONSE.length; ++i) {
+			  		  var li = document.createElement("li");
+						var a = document.createElement("a");
+						a.textContent = data.API_RESPONSE[i].title;
+						a.setAttribute('href', "jobOffer.html?id="+data.API_RESPONSE[i].id);
+						li.appendChild(a);
+						ul.appendChild(li);
+						}
+						
+					}else{
+							getJobMatches();
+					
+		    	 }
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+}
+	
+function getJobMatches()
+
+{
+	alert(currentMatchingJobId);
+	{
+	$.ajax({
+    type:'GET',
+    cache : false,
+    url: "http://149.56.109.218/API/matches",
+    dataType:"jsonp",
+	data : {
+	email :email,
+	token : token,
+	jobId : currentMatchingJobId,
+	method : "GET",
+}})
+    .done(function(data){
+    	console.log(data);
+			
+		var ul = document.getElementById("listJobs");
+			for (var i = 0; i < data.API_RESPONSE.length; ++i) {
+			  	var li = document.createElement("li");
+				var a = document.createElement("a");
+				a.textContent = data.API_RESPONSE[i].first_name + " " + data.API_RESPONSE[i].last_name;
+				a.setAttribute('href', "userProfile.html?id="+data.API_RESPONSE[i].email);
+				li.appendChild(a);
+				ul.appendChild(li);
+		}
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+   }
+}	
+	
+	
+function dropDownChanged()
+{
+	selectedJobId = document.getElementById('ddlJobId').value;
+	currentMatchingJobId = selectedJobId;	
+	getUserMatchs();	
+}	
+	
+function getUserOffers()
+{
+	$.ajax({
+    type:'GET',
+    cache : false,
+    url: "http://149.56.109.218/API/matches",
+    dataType:"jsonp",
+	data : {
+	email :email,
+	token : token,
+	method : "GET",
+	offerswithmatches : true
+}})
+    .done(function(data){
+    	console.log(data);
+    	currentMatchingJobId = -1;
+	    	select = document.getElementById('ddlJobId');
+	    	var opt = document.createElement('option');
+			opt.value = "-1";
+			opt.innerHTML = "Mes matchs personnels";
+			select.appendChild(opt);
+			for (var i = 0; i<data.API_RESPONSE.length; i++){
+			    var opt = document.createElement('option');
+			    opt.value = data.API_RESPONSE[i].id;
+			    opt.innerHTML = data.API_RESPONSE[i].title;
+			    select.appendChild(opt);}
+	getUserMatchs();
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+}	
+	
+	
+</script>
 
     </head>
 
@@ -84,27 +213,27 @@
     </header><!--/header-->
 
         <!-- Top content -->
-<div class="container">
+<div class="container">7
+						<row>
+						<div class="col-xs-10 floatRight textAlignLeft">
+							<br /><br /><br />
+							<select id="ddlJobId"class="col-xs-8 floatRight" onchange="dropDownChanged()">
+
+
+							</select>	
+							<label class="col-xs-4 floatRight">Pour quelle offre cherchez-vous</label>
+						</div>
+					</row>
 			<div class="center">
 				<div class="col-sm-12">
 					<div class="center">
 					<div class="col-sm-12">
 						<H3>Vos matchs en cours</H3>
-						<row>
-							<div class="col-xs-10 floatRight textAlignLeft">
-								<H3><a href="jobOffer.html?id=2323323">PROGRAMMEUR-ANALYSTE - ÉTS</a></H2>
-							</div>
-						</row>
-						
-						<row>
-							<div class="col-xs-10 floatRight textAlignLeft">
-								<H3><a href="jobOffer.html?id=23397213">ANALYSTE - CGI</a></H2>
-							</div>
-						</row>
-						
-						
-						
-						
+		<div class="col-xs-10 floatRight textAlignLeft">
+											<ul id="listJobs">
+											
+											</ul>										
+										</div>	
 				</div>  	</div>  
 				</div>   
 			</div>   
