@@ -62,12 +62,16 @@ $.ajax({
     })
     .done(function(data){
 	token = data.API_RESPONSE;
-    console.log(token);
-    window.location.replace("profile.html");
-    
-    localStorage.setItem("token",token);
-     localStorage.setItem("email",useremail);
-    
+    console.log(data);
+    if(data.API_RESPONSE != null){
+	   	localStorage.setItem("token",token);
+	    localStorage.setItem("email",useremail);
+	    window.location.replace("profile.html");
+    }else{
+    	alert("Mauvaise combination courriel/mot de passe ou utilisateur inexistant!");
+    }
+
+
     }).fail(function(xhr, status, error)
 	{
 	alert(xhr.responseText);

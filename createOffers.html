@@ -35,11 +35,12 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+		    	<script src="js/jquery.js"></script>
 		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 		<script src="js/paccordion.js"></script>
 
 
-    	<script src="js/jquery.js"></script>
+
 
 <script type="text/javascript">
 var token = localStorage.getItem("token");
@@ -169,6 +170,10 @@ $.ajax({
             //alert("ajax");
     });
 }
+function disconnect(){
+	localStorage.clear();
+	window.location.replace("index.html");
+}
 
 	
 	
@@ -195,12 +200,13 @@ $.ajax({
 				
                                 <div class="collapse navbar-collapse navbar-right">
                                        <ul class="nav navbar-nav">
-                        <li class="active"><a href="profile.html">Profil</a></li>
+                        <li><a href="profile.html">Profil</a></li>
 						<li><a href="job.html">Voir les offres</a></li>
 						<li><a href="matchs.html">Voir vos matchs</a></li>
-						<li><a href="createOffers.html">Créer une nouvelle offre</a></li>
+						<li class="active"><a href="createOffers.html">Créer une nouvelle offre</a></li>
                         <li><a href="clientOffering.html">Vos offres en cours</a></li>
-                        <li><a href="matchingJob.html">Voir les candidats</a></li>                
+                        <li><a href="matchingJob.html">Voir les candidats</a></li> 
+                        <li onclick="disconnect()"><a >Déconnexion</a></li>               
                     </ul>
                 </div>
             </div><!--/.container-->

@@ -175,6 +175,10 @@ function getUserOffers()
     });
 }	
 	
+function disconnect(){
+	localStorage.clear();
+	window.location.replace("index.html");
+}
 	
 </script>
 
@@ -198,12 +202,13 @@ function getUserOffers()
 				
                                 <div class="collapse navbar-collapse navbar-right">
                                         <ul class="nav navbar-nav">
-                        <li class="active"><a href="profile.html">Profil</a></li>
+                        <li><a href="profile.html">Profil</a></li>
 						<li><a href="job.html">Voir les offres</a></li>
-						<li><a href="matchs.html">Voir vos matchs</a></li>
+						<li class="active"><a href="matchs.html">Voir vos matchs</a></li>
 						<li><a href="createOffers.html">Créer une nouvelle offre</a></li>
                         <li><a href="clientOffering.html">Vos offres en cours</a></li>
-                        <li><a href="matchingJob.html">Voir les candidats</a></li>                
+                        <li><a href="matchingJob.html">Voir les candidats</a></li>  
+                        <li onclick="disconnect()"><a >Déconnexion</a></li>              
                     </ul>
                 </div>
             </div><!--/.container-->
@@ -213,16 +218,17 @@ function getUserOffers()
 
         <!-- Top content -->
 <div class="container">
-						<row>
+					
 						<div class="col-xs-10 floatRight textAlignLeft">
 							<br /><br /><br />
-							<select id="ddlJobId"class="col-xs-8 floatRight" onchange="dropDownChanged()">
+							<label class="col-xs-10">Pour quelle offre cherchez-vous</label>
+							<select id="ddlJobId"class="col-xs-10" onchange="dropDownChanged()">
 
 
 							</select>	
-							<label class="col-xs-4 floatRight">Pour quelle offre cherchez-vous</label>
+							
 						</div>
-					</row>
+				
 			<div class="center">
 				<div class="col-sm-12">
 					<div class="center">

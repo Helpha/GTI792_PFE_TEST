@@ -52,6 +52,15 @@ var token = localStorage.getItem("token");
 var email = localStorage.getItem("email");
 testHiredApi();
 getSkillsList();
+
+
+function disconnect(){
+	localStorage.clear();
+	window.location.replace("index.html");
+}
+
+
+
 function testHiredApi()
 {
 
@@ -334,7 +343,8 @@ $.ajax({
 						<li><a href="matchs.html">Voir vos matchs</a></li>
 						<li><a href="createOffers.html">Créer une nouvelle offre</a></li>
                         <li><a href="clientOffering.html">Vos offres en cours</a></li>
-                        <li><a href="matchingJob.html">Voir les candidats</a></li>                
+                        <li><a href="matchingJob.html">Voir les candidats</a></li> 
+                        <li onclick="disconnect()"><a >Déconnexion</a></li>               
                     </ul>
                 </div>
             </div><!--/.container-->

@@ -43,7 +43,6 @@ function createUser(){
 	var password =document.getElementById('form-password').value;
 	var firstName = document.getElementById('form-firstName').value;
 	var lastName = document.getElementById('form-lastName').value;
-	alert(firstName + lastName);
 	$.ajax({
     type:'put',
     cache : false,
@@ -58,7 +57,29 @@ function createUser(){
     dataType:"jsonp"})
     .done(function(data){
     	console.log(data);
-    	//window.location.replace("profile.html");
+    	
+    		$.ajax({
+    type:'post',
+    cache : false,
+    url: "http://149.56.109.218/API/token",
+    data : {
+		email: email,
+		password : password,
+        method: "POST"
+        },
+    dataType:"jsonp"})
+    .done(function(data){
+    	console.log(data);
+    	localStorage.setItem("token",data.API_RESPONSE);
+    	localStorage.setItem("email",email);
+    	window.location.replace("profile.html");
+    }).fail(function(xhr, status, error)
+	{
+	alert(xhr.responseText);
+	}).always(function(){
+            //alert("ajax");
+    });
+
     }).fail(function(xhr, status, error)
 	{
 	alert(xhr.responseText);

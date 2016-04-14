@@ -86,7 +86,11 @@
 		            //alert("ajax");
 		    });
 		}
-    	
+    	function disconnect(){
+	localStorage.clear();
+	window.location.replace("index.html");
+}
+
     </script>
     
 
@@ -95,9 +99,9 @@
 
     <body class="homepage">
 
-    <header id="header">
+       <header id="header">
 
-         <nav class="navbar navbar-inverse" role="banner">
+              <nav class="navbar navbar-inverse" role="banner">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -110,13 +114,14 @@
                 </div>
 				
                                 <div class="collapse navbar-collapse navbar-right">
-                                        <ul class="nav navbar-nav">
-                        <li class="active"><a href="profile.html">Profil</a></li>
+                                       <ul class="nav navbar-nav">
+                        <li><a href="profile.html">Profil</a></li>
 						<li><a href="job.html">Voir les offres</a></li>
 						<li><a href="matchs.html">Voir vos matchs</a></li>
 						<li><a href="createOffers.html">Créer une nouvelle offre</a></li>
-                        <li><a href="clientOffering.html">Vos offres en cours</a></li>
-                        <li><a href="matchingJob.html">Voir les candidats</a></li>                
+                        <li class="active"><a href="clientOffering.html">Vos offres en cours</a></li>
+                        <li><a href="matchingJob.html">Voir les candidats</a></li>
+                        <li onclick="disconnect()"><a >Déconnexion</a></li>                
                     </ul>
                 </div>
             </div><!--/.container-->
