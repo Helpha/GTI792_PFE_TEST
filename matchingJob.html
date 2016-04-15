@@ -112,6 +112,14 @@ function getUserForOffers()
 	  		  var li = document.createElement("li");
 	  		  li.appendChild(document.createTextNode(data.API_RESPONSE[0].skills[i].name));
 	          ul.appendChild(li);
+	          
+	           	document.getElementById("valueSilder").style.display = "block";
+ 			    document.getElementById("slider").style.display = "block";
+ 			    document.getElementById("name").style.display = "block";
+ 			    document.getElementById("shortDesc").style.display = "block";
+ 			    document.getElementById("listSkills").style.display = "block";
+ 			     document.getElementById("message").innerHTML = "Votre note";
+	          
 		}
     	}else{
 
